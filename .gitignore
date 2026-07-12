@@ -16,3 +16,9 @@ venv/
 
 .DS_Store
 Thumbs.db
+
+trip_planner.db
+trip_planner.db-shm
+trip_planner.db-wal
+wayfind_meta.db
+wayfind_users.db

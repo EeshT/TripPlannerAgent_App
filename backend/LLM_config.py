@@ -9,7 +9,8 @@ API_KEY = os.getenv("API_KEY")
 
 llm = ChatGroq(
     groq_api_key=API_KEY,
-    model_name="llama-3.3-70b-versatile"
+    model_name="llama-3.3-70b-versatile",
+    max_tokens=10000,
 )
 
 # llm = ChatGoogleGenerativeAI(

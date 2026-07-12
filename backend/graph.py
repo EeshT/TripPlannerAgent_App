@@ -19,6 +19,7 @@ from dotenv import load_dotenv
 import uuid
 from langgraph.checkpoint.memory import MemorySaver
 from langgraph.checkpoint.sqlite import SqliteSaver
+from langgraph.checkpoint.serde.jsonplus import JsonPlusSerializer
 import sqlite3
 
 load_dotenv()
@@ -30,7 +31,59 @@ conn = sqlite3.connect(
     check_same_thread=False
 )
 
-checkpointer = SqliteSaver(conn)
+ALLOWED_SCHEMA_TYPES = [
+
+    ("schema", "TravelerPreferences"),
+
+    ("schema", "TravelRequest"),
+
+    ("schema", "Hotel"),
+
+    ("schema", "Flight"),
+
+    ("schema", "RoundTripFlightOption"),
+
+    ("schema", "Attraction"),
+
+    ("schema", "Suitability"),
+
+    ("schema", "WeatherForecast"),
+
+    ("schema", "Activity"),
+
+    ("schema", "DailyPlan"),
+
+    ("schema", "TravelItinerary"),
+
+    ("schema", "FlightVerification"),
+
+    ("schema", "HotelVerification"),
+
+    ("schema", "BookingVerification"),
+
+    ("schema", "CheckoutLinks"),
+
+    ("schema", "BookingSummary"),
+
+    ("schema", "FlightSearchResult"),
+
+    ("schema", "ExtractedFlight"),
+
+    ("schema", "FlightSearchOutput"),
+
+]
+
+
+
+checkpointer = SqliteSaver(
+
+    conn,
+
+    serde=JsonPlusSerializer(allowed_msgpack_modules=ALLOWED_SCHEMA_TYPES),
+
+)
+
+
 
 
 # ── Flight selection / manual input ──────────────────────────────────────────
